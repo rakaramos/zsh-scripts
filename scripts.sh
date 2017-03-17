@@ -24,19 +24,33 @@ function git-clean() {
 function vidtogif() {
     if [ -n "$1" ]
         then
+            INPUT="$1"
+            FILENAME="${INPUT%%.*}.gif"
+
             mkdir pngs gifs
             ffmpeg -i "$1" -r 5 pngs/frame_%04d.png
             sips -s format gif pngs/*.png --out gifs/
             cd gifs
             if [ -z "$2" ]
                 then
-                    gifsicle *.gif --colors=256 --optimize=3 --delay=3 --loopcount > ../animation.gif
+                    gifsicle *.gif --optimize=3 --delay=100 --loopcount > ../"$FILENAME"
                 else
-                    gifsicle *.gif --colors=256 --optimize=3 --delay=3 --loopcount --resize "$2" > ../animation.gif
+                    gifsicle *.gif --optimize=3 --delay=3 --loopcount --resize "$2" > ../"$FILENAME"
             fi
             cd ..
             rm -rf pngs gifs
     else
         echo "Use video file as first parameter"
+    fi
+}
+
+function giftovid() {
+    if [ -n "$1" ]
+        then
+            INPUT="$1"
+            FILENAME="${INPUT%%.*}.mp4"
+            ffmpeg -f gif -i $1 "$FILENAME"
+    else
+        echo "Use gif file as first parameter"
     fi
 }
