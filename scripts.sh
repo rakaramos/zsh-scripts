@@ -40,3 +40,7 @@ function vidtogif() {
         echo "Use video file as first parameter"
     fi
 }
+
+function simRecordToGif() {
+    xcrun simctl io booted recordVideo ~/Desktop/video.mov; vidtogif ~/Desktop/video.mov; mv animation.gif ~/Desktop
+}
