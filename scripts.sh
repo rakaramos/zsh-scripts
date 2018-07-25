@@ -122,3 +122,7 @@ function dvdnify() {
         echo "Ok, bye!"
     fi
 }
+
+function mp3nify() {
+  for vid in *.MTS; do ffmpeg -i "$vid" -vn -acodec libmp3lame -b:a 128k "${vid%.MTS}.mp3"; done
+}
