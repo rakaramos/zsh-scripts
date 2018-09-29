@@ -116,7 +116,7 @@ function dvdnify() {
     read -r -s -e choice
     
     if [ $choice -eq "yes" ]; then
-        echo "lets fo it"
+        echo "lets do it"
         for vid in *.m4v; do ffmpeg -threads 4 -i "$vid" -aspect 16:9 -target ntsc-dvd -b:v "$bitrate"k -minrate "$bitrate"k -maxrate "$bitrate"k -bufsize 100k -b:a 128k "${vid%.m4v}.mpg"; done
     else
         echo "Ok, bye!"
