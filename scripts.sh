@@ -126,3 +126,7 @@ function dvdnify() {
 function mp3nify() {
   for vid in *.MTS; do ffmpeg -i "$vid" -vn -acodec libmp3lame -b:a 128k "${vid%.MTS}.mp3"; done
 }
+
+function extractSubtitle() {
+  for vid in *.mkv; do ffmpeg -i "$vid" -map 0:s:0 "${vid%.mkv}.srt"; done
+}
